@@ -3,7 +3,7 @@ import numpy as np
 from .metrics import accuracy_score, r2_score
 
 
-class BaseClassifire(meta=ABCMeta):
+class BaseClassifire(metaclass=ABCMeta):
     """Base class for all classifires"""
 
     @abstractmethod
@@ -28,7 +28,7 @@ class BaseClassifire(meta=ABCMeta):
         return accuracy_score(y_true, y_pred)
 
 
-class BaseRegression(meta=ABCMeta):
+class BaseRegression(metaclass=ABCMeta):
     """Base class for all regressors"""
 
     @abstractmethod
@@ -53,7 +53,7 @@ class BaseRegression(meta=ABCMeta):
         return r2_score(y_true, y_pred)
 
 
-class BaseCluster(meta=ABCMeta):
+class BaseCluster(metaclass=ABCMeta):
     """Base class for all clusterers"""
 
     @abstractmethod
@@ -78,7 +78,7 @@ class BaseCluster(meta=ABCMeta):
         return self.predict(X)
 
 
-class BaseTransformer(meta=ABCMeta):
+class BaseTransformer(metaclass=ABCMeta):
     """Base class for all transformers"""
 
     @abstractmethod
