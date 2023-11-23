@@ -14,18 +14,22 @@ class BaseClassifire(metaclass=ABCMeta):
     def predict(self, X):
         pass
 
-    def score(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def score(self, X: np.ndarray, y: np.ndarray) -> float:
         """
         Return accuracy score.
 
         Args:
-            y_true (np.ndarray): 1d numpy array of correct class labels.
-            y_pred (np.ndarray): 1d numpy array of predicted class labels.
+            X (np.ndarray):
+                Test samples. 2d numpy array of shape
+                (n_samples, n_features).
+            y (np.ndarray):
+                True labels for `X`. 1d numpy array  of shape
+                (n_samples,).
 
         Returns:
-            float: Accuracy score.
+            float: Mean accuracy of `self.predict(X)` w.r.t. `y`.
         """
-        return accuracy_score(y_true, y_pred)
+        return accuracy_score(y, self.predict(X))
 
 
 class BaseRegression(metaclass=ABCMeta):
@@ -39,18 +43,22 @@ class BaseRegression(metaclass=ABCMeta):
     def predict(self, X):
         pass
 
-    def score(self, y_true: np.ndarray, y_pred: np.ndarray) -> float:
+    def score(self, X: np.ndarray, y: np.ndarray) -> float:
         """
-        Return R2 score.
+        Return R^2 score.
 
         Args:
-            y_true (np.ndarray): 1d numpy array of correct target values.
-            y_pred (np.ndarray): 1d numpy array of predicted target values.
+            X (np.ndarray):
+                Test samples. 2d numpy array of shape
+                (n_samples, n_features).
+            y (np.ndarray):
+                True values for `X`. 1d numpy array  of shape
+                (n_samples,).
 
         Returns:
-            float: R2 score.
+            float: R^2 score of `self.predict(X)` w.r.t. `y`.
         """
-        return r2_score(y_true, y_pred)
+        return r2_score(y, self.predict(X))
 
 
 class BaseCluster(metaclass=ABCMeta):
