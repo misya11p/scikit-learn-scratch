@@ -32,7 +32,7 @@ class BaseClassifire(metaclass=ABCMeta):
         return accuracy_score(y, self.predict(X))
 
 
-class BaseRegression(metaclass=ABCMeta):
+class BaseRegressor(metaclass=ABCMeta):
     """Base class for all regressors"""
 
     @abstractmethod
