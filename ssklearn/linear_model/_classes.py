@@ -1,7 +1,8 @@
 import numpy as np
+from .._base import BaseRegressor
 
 
-class SimpleLinearRegression:
+class SimpleLinearRegression(BaseRegressor):
     def fit(self, x: np.ndarray, y: np.ndarray):
         """
         Training model.
