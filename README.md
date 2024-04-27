@@ -1,6 +1,6 @@
 # scikit-learnを0から作ろうProject
 
-武蔵野大学 Boh PJより発足した、機械学習の理論を学ぶ為のプロジェクト。[scikit-learn](https://scikit-learn.org/stable/)に実装されている機械学習モデルを1から実装することで、機械学習モデルへの理解を深める。
+武蔵野大学 Boh PJより発足した、機械学習の理論を学ぶ為のプロジェクト。[scikit-learn](https://scikit-learn.org/stable/)に実装されている機械学習モデルを0から実装することで、機械学習モデルへの理解を深める。
 
 ## 進め方
 
