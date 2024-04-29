@@ -64,3 +64,7 @@ class LinearRegression(BaseRegressor):
         """
         X = np.insert(X, 0, 1, axis=1)
         return X @ self.w
+
+
+class Ridge:
+    pass
