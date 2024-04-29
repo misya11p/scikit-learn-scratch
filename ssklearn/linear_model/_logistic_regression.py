@@ -1,0 +1,2 @@
+class LogisticRegression:
+    pass

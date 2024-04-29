@@ -1,0 +1,2 @@
+class GaussianMixture:
+    pass
