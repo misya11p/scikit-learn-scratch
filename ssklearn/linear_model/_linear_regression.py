@@ -3,6 +3,11 @@ from .._base import BaseRegressor
 
 
 class SimpleLinearRegression(BaseRegressor):
+    def __init__(self):
+        """Simple linear regression model."""
+        self.a = None
+        self.b = None
+
     def fit(self, x: np.ndarray, y: np.ndarray):
         """
         Training model.
@@ -33,6 +38,7 @@ class SimpleLinearRegression(BaseRegressor):
 
 class LinearRegression(BaseRegressor):
     def __init__(self):
+        """Linear regression model."""
         self.w = None
 
     def fit(self, X: np.ndarray, y: np.ndarray):
@@ -58,3 +64,7 @@ class LinearRegression(BaseRegressor):
         """
         X = np.insert(X, 0, 1, axis=1)
         return X @ self.w
+
+
+class Ridge:
+    pass
