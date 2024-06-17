@@ -3,11 +3,11 @@ from scipy.stats import multivariate_normal
 
 
 class GaussianMixture:
-    def __init__(self, n_components, max_iter=100):
+    def __init__(self, n_components: int, max_iter: int = 100):
         self.n_components = n_components
         self.max_iter = max_iter
 
-    def fit(self, X):
+    def fit(self, X: np.ndarray):
         N, d = X.shape
         self._init_params(d)
 
@@ -23,17 +23,17 @@ class GaussianMixture:
 
             self.pi = Nk / N
 
-    def predict(self, X):
+    def predict(self, X: np.ndarray) -> np.ndarray:
         gamma = self._posterior_prod(X)
         c = gamma.argmax(axis=0)
         return c
 
-    def _init_params(self, d):
+    def _init_params(self, d: int):
         self.mu = np.random.randn(self.n_components, d)
         self.sigma = np.tile(np.eye(d), (self.n_components, 1, 1))
         self.pi = np.ones(self.n_components) / self.n_components
 
-    def _posterior_dist(self, X):
+    def _posterior_dist(self, X: np.ndarray) -> np.ndarray:
         joint_probs = []
         for mu, sigma, pi in zip(self.mu, self.sigma, self.pi):
             likelihood = multivariate_normal.pdf(X, mean=mu, cov=sigma)
