@@ -25,7 +25,7 @@ class GaussianMixture(BaseCluster):
             self.pi = Nk / N
 
     def predict(self, X: np.ndarray) -> np.ndarray:
-        gamma = self._posterior_prod(X)
+        gamma = self._posterior_dist(X)
         c = gamma.argmax(axis=0)
         return c
 
