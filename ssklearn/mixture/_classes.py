@@ -5,10 +5,17 @@ from .._base import BaseCluster
 
 class GaussianMixture(BaseCluster):
     def __init__(self, n_components: int, max_iter: int = 100):
+        """Gaussian mixture model with EM algorithm for clustering."""
         self.n_components = n_components
         self.max_iter = max_iter
 
     def fit(self, X: np.ndarray):
+        """
+        Training model using EM algorithm.
+
+        Args:
+            X (np.ndarray): Training data.
+        """
         N, d = X.shape
         self._init_params(d)
 
@@ -25,16 +32,45 @@ class GaussianMixture(BaseCluster):
             self.pi = Nk / N
 
     def predict(self, X: np.ndarray) -> np.ndarray:
+        """
+        Predict cluster using the model. Return the cluster with the
+        highest posterior probability.
+
+        Args:
+            X (np.ndarray): Samples.
+
+        Returns:
+            np.ndarray: Predicted clusters.
+        """
         gamma = self._posterior_dist(X)
         c = gamma.argmax(axis=0)
         return c
 
     def _init_params(self, d: int):
+        """
+        Initialize parameters.
+
+        - mu: Randomly initialized.
+        - sigma: Identity matrix.
+        - pi: Uniform distribution.
+
+        Args:
+            d (int): Number of features.
+        """
         self.mu = np.random.randn(self.n_components, d)
         self.sigma = np.tile(np.eye(d), (self.n_components, 1, 1))
         self.pi = np.ones(self.n_components) / self.n_components
 
     def _posterior_dist(self, X: np.ndarray) -> np.ndarray:
+        """
+        Compute posterior distribution.
+
+        Args:
+            X (np.ndarray): Samples.
+
+        Returns:
+            np.ndarray: Posterior distribution.
+        """
         joint_probs = []
         for mu, sigma, pi in zip(self.mu, self.sigma, self.pi):
             likelihood = multivariate_normal.pdf(X, mean=mu, cov=sigma)
