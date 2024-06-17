@@ -1,8 +1,9 @@
 import numpy as np
 from scipy.stats import multivariate_normal
+from .._base import BaseCluster
 
 
-class GaussianMixture:
+class GaussianMixture(BaseCluster):
     def __init__(self, n_components: int, max_iter: int = 100):
         self.n_components = n_components
         self.max_iter = max_iter
