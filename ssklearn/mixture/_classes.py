@@ -8,6 +8,9 @@ class GaussianMixture(BaseCluster):
         """Gaussian mixture model with EM algorithm for clustering."""
         self.n_components = n_components
         self.max_iter = max_iter
+        self.mu = None
+        self.sigma = None
+        self.pi = None
 
     def fit(self, X: np.ndarray):
         """
@@ -25,9 +28,9 @@ class GaussianMixture(BaseCluster):
 
             self.mu = gamma @ X / Nk.reshape(-1, 1)
 
-            dev = np.array([X - self.mu[k] for k in range(self.n_components)])
-            dev_gamma = (gamma[..., np.newaxis] * dev).transpose(0, 2, 1)
-            self.sigma = dev_gamma @ dev / Nk.reshape(-1, 1, 1)
+            for i in range(self.n_components):
+                mu = self.mu[i]
+                self.sigma[i] = gamma[i] * (X - mu).T @ (X - mu) / Nk[i]
 
             self.pi = Nk / N
 
