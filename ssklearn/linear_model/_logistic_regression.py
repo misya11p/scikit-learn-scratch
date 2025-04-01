@@ -80,8 +80,5 @@ class LogisticRegressionBinary(BaseClassifire):
         Returns:
             np.ndarray: Binary prediction results.
         """
-        if self.fit_intercept:
-            X = np.insert(X, 0, 1, axis=1)
-        pred = self._sigmoid(np.dot(X, self.w))
-        return (pred > 0.5).astype(int)
+        return (self.predict_proba(X) > 0.5).astype(int)
 
