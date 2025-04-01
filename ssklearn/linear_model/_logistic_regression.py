@@ -40,8 +40,6 @@ class LogisticRegression(BaseClassifire):
         """
         if self.fit_intercept:
             X = np.insert(X, 0, 1, axis=1)
-        else:
-            pass
         self.w = np.random.randn(X.shape[1])
         tol_vec = np.full(X.shape[1], self.tol)
         diff = np.full(X.shape[1], np.inf)
@@ -51,10 +49,8 @@ class LogisticRegression(BaseClassifire):
             r = pred * (1 - pred)
             xr = X.T * r
             w_new = np.dot(
-                (
-                    np.linalg.solve(np.dot(xr, X), xr)),
-                (np.dot(X, self.w) - (1 / r * (pred - y))
-                )
+                np.linalg.solve(np.dot(xr, X), xr),
+                np.dot(X, self.w) - (1 / r * (pred - y))
             )
             diff = w_new - self.w
             self.iter += 1
@@ -90,8 +86,6 @@ class LogisticRegression(BaseClassifire):
         """
         if self.fit_intercept:
             X = np.insert(X, 0, 1, axis=1)
-        else:
-            pass
         pred = self.predict_proba(X)[:, 1]
         return (pred > 0.5).astype(int)
 
