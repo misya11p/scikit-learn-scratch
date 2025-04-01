@@ -56,19 +56,19 @@ class LogisticRegressionBinary(BaseClassifire):
             self.iter += 1
             self.w = w_new
 
-    def predict_proba(self, x: np.ndarray) -> np.ndarray:
+    def predict_proba(self, X: np.ndarray) -> np.ndarray:
         """
         Predict probability using the model.
 
         Args:
-            x (np.ndarray): Samples.
+            X (np.ndarray): Samples.
 
         Returns:
             np.ndarray: Probability prediction results.
         """
         if self.fit_intercept:
-            x = np.insert(x, 0, 1, axis=1)
-        return self._sigmoid(np.dot(x, self.w))
+            X = np.insert(X, 0, 1, axis=1)
+        return self._sigmoid(np.dot(X, self.w))
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
