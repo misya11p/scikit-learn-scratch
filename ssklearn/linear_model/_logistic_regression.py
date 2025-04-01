@@ -47,11 +47,15 @@ class LogisticRegressionBinary(BaseClassifire):
         while np.any(diff > tol_vec) and (self.iter < self.max_iter):
             pred = self._sigmoid(np.dot(X, self.w))
             r = pred * (1 - pred)
-            xr = X.T * r
-            w_new = np.dot(
-                np.linalg.solve(np.dot(xr, X), xr),
-                np.dot(X, self.w) - (1 / r * (pred - y))
-            )
+            try:
+                w_new = self.w - np.linalg.solve(
+                    (X.T * r) @ X,
+                    X.T @ (pred - y)
+                )
+            except np.linalg.LinAlgError:
+                w_new, _, _, _ = np.linalg.lstsq(
+                    (X.T * r) @ X, X.T @ (pred - y)
+                )
             diff = w_new - self.w
             self.iter += 1
             self.w = w_new
