@@ -2,7 +2,7 @@ import numpy as np
 from .._base import BaseClassifire
 
 
-class LogisticRegression(BaseClassifire):
+class LogisticRegressionBinary(BaseClassifire):
     def __init__(
         self,
         tol: float = 0.0001,
@@ -45,7 +45,7 @@ class LogisticRegression(BaseClassifire):
         diff = np.full(X.shape[1], np.inf)
         self.iter = 0
         while np.any(diff > tol_vec) and (self.iter < self.max_iter):
-            pred = self.predict_proba(X)[:, 1]
+            pred = self._sigmoid(np.dot(X, self.w))
             r = pred * (1 - pred)
             xr = X.T * r
             w_new = np.dot(
@@ -66,13 +66,9 @@ class LogisticRegression(BaseClassifire):
         Returns:
             np.ndarray: Probability prediction results.
         """
-        return np.stack(
-            [
-                1 - self._sigmoid(np.dot(x, self.w)),
-                self._sigmoid(np.dot(x, self.w))
-            ]
-            ,1
-        )
+        if self.fit_intercept:
+            x = np.insert(x, 0, 1, axis=1)
+        return self._sigmoid(np.dot(x, self.w))
 
     def predict(self, X: np.ndarray) -> np.ndarray:
         """
@@ -86,6 +82,6 @@ class LogisticRegression(BaseClassifire):
         """
         if self.fit_intercept:
             X = np.insert(X, 0, 1, axis=1)
-        pred = self.predict_proba(X)[:, 1]
+        pred = self._sigmoid(np.dot(X, self.w))
         return (pred > 0.5).astype(int)
 
