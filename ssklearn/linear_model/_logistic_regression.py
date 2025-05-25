@@ -27,7 +27,7 @@ class LogisticRegressionBinary(BaseClassifire):
         Returns:
             np.ndarray: sigmoid function result.
         """
-        return np.exp(np.minimum(x, 0)) / (1 + np.exp(- np.abs(x)))
+        return 1 / (1 + np.exp(-x))
 
     def fit(self, X: np.ndarray, y: np.ndarray):
         """
