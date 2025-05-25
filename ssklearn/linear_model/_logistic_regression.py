@@ -16,7 +16,6 @@ class LogisticRegressionBinary(BaseClassifire):
         self.w = None
         self.iter = None
 
-
     @staticmethod
     def _sigmoid(x: np.ndarray) -> np.ndarray:
         """
@@ -46,12 +45,10 @@ class LogisticRegressionBinary(BaseClassifire):
         self.iter = 0
         while np.any(diff > tol_vec) and (self.iter < self.max_iter):
             pred = self._sigmoid(np.dot(X, self.w))
-            r = pred * (1 - pred) + 1e-10
-            xr = X.T * r
-            w_new = np.dot(
-                (np.linalg.solve(np.dot(xr,X), xr)),
-                (np.dot(X, self.w) - (1 / r * (pred - y)))
-            )
+            grad = np.dot(X.T, (pred - y))
+            hess = np.dot(X.T * pred * (1 - pred), X)
+            hess_inv = np.linalg.pinv(hess)
+            w_new = self.w - np.dot(hess_inv, grad)
             diff = w_new - self.w
             self.iter += 1
             self.w = w_new
