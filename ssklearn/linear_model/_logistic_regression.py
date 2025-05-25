@@ -40,7 +40,7 @@ class LogisticRegressionBinary(BaseClassifire):
         """
         if self.fit_intercept:
             X = np.insert(X, 0, 1, axis=1)
-        self.w = np.random.randn(X.shape[1])
+        self.w = np.ones(X.shape[1])
         tol_vec = np.full(X.shape[1], self.tol)
         diff = np.full(X.shape[1], np.inf)
         self.iter = 0
