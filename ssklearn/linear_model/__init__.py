@@ -1,1 +1,2 @@
-from ._classes import SimpleLinearRegression
+from ._linear_regression import SimpleLinearRegression, LinearRegression
+from ._logistic_regression import LogisticRegressionBinary
